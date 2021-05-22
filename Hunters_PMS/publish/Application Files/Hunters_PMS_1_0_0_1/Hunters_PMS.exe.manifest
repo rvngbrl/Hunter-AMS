@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+  <asmv1:assemblyIdentity name="Hunters_PMS.exe" version="1.0.0.1" publicKeyToken="473d9a98ca3b44f6" language="neutral" processorArchitecture="msil" type="win32" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="Hunters_PMS" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+    <commandLine file="Hunters_PMS.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!--
+          UAC Manifest Options
+          If you want to change the Windows User Account Control level replace the 
+          requestedExecutionLevel node with one of the following.
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+         If you want to utilize File and Registry Virtualization for backward 
+         compatibility then delete the requestedExecutionLevel node.
+    -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Bunifu_UI_v1.5.3.dll" size="330752">
+      <assemblyIdentity name="Bunifu_UI_v1.5.3" version="1.5.3.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>duHT7JX973Srr5A5Ldb0ql40SSKr8R5XJwcofUZ/KTA=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="GemBox.Pdf.dll" size="3534848">
+      <assemblyIdentity name="GemBox.Pdf" version="13.0.35.1087" publicKeyToken="B1B72C69714D4847" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>m3EsRvFky4pZmhqZpqfR/kaysS9ZX1P27dPaAb05LKQ=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Hunters_PMS.exe" size="2424336">
+      <assemblyIdentity name="Hunters_PMS" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>GkxJg0NU8oZi8FzjMFXoyGq5NQnc3Y52FdC+i6TExjs=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="Hunters_PMS.exe.config" size="188">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>c922zfRb5ORzqEo8SDjt8Mx8lDMhGTWhqKcK/oileDM=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Resource\approve-icon.png" size="65685">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>vp56OrnE73gJz9niW3m8Gb4rxOk22uAr6Ymytkva1SE=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Resource\CV_APPLICATION_01.jpg" size="415097">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>NtNy1s1YYHUL33I2m5FxjG340S4z02jOSdODRb39aTo=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Resource\cvapplication.jpg" size="504335">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>INODutenhVnBL+RhNKSG3OowWkpeMciDZX5yN+LvShY=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="Resource\novoform1.jpg" size="458038">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>cwGp7uAExiJsvJnZ/rS3pdsQeu2yuVAzBiK5M2i84oo=</dsig:DigestValue>
+    </hash>
+  </file>
+<publisherIdentity name="CN=INNOVATOR_PC03\Arvin Trinidad" issuerKeyHash="8219182c071da18501ae1089b68a2510345b11d6" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>RbvnMoy5y4yv56J7n0gIOUT68uAQZR2WMPKjPxUYXL0=</DigestValue></Reference></SignedInfo><SignatureValue>KUps75zh4YxDQRXosHfQgW3eiH5g7hTrUt/fr0hZWaalo1wN9KygGn88z3RyAc8V8EmOEgT/HlsD1fdMZCjiZ4VDozKrrcD8RmlTyek9mQk8hrk9CXis036dZoQOJqy8K26BieU3TdFZGoIEmt9RXlXjDPCQnx4rA037zIRcm+4=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>2xRVoj7BhoKV4WGx9GPI1JvPJ2mZeDRcTIuOTh3QLcK2I6okbJz0eYBWcB4CiVVXE/4PKIWC7EQmLh6neQFogrqRUpRxGKxJzMGIKYqn8yoAaL23spDVqCDw7anitfGSkoFUtb5oe6DyPnlaPjDadu6wkAafeXrB1T9apZZz5jk=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="bd5c18153fa3f230961d6510e0f2fa443908489f7ba2e7af8ccbb98c32e7bb45" Description="" Url=""><as:assemblyIdentity name="Hunters_PMS.exe" version="1.0.0.1" publicKeyToken="473d9a98ca3b44f6" language="neutral" processorArchitecture="msil" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=INNOVATOR_PC03\Arvin Trinidad</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>dvpmSSGG4e6FXY2Zoao1bKu/RYUYz4POrdWkaR9voKc=</DigestValue></Reference></SignedInfo><SignatureValue>GAMSRI8TbmK2OFXgYHeQiCF99//Om+5uzWVBTX6U4XPyshGFvNdM+v8aUPn4SjdwWLtsPc/+5tyT5n3zzXooA6Mh/nX0YSLdnTNbDzgOEbUglADYVpKy5CqtbsY577xpzLQ3zynmkVPKTL76KTTVpBWDQTxIeCcNZ781Vy1y0zc=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>2xRVoj7BhoKV4WGx9GPI1JvPJ2mZeDRcTIuOTh3QLcK2I6okbJz0eYBWcB4CiVVXE/4PKIWC7EQmLh6neQFogrqRUpRxGKxJzMGIKYqn8yoAaL23spDVqCDw7anitfGSkoFUtb5oe6DyPnlaPjDadu6wkAafeXrB1T9apZZz5jk=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIICDTCCAXagAwIBAgIQXxjltf/Mna1BptfUdCGm/zANBgkqhkiG9w0BAQsFADBFMUMwQQYDVQQDHjoASQBOAE4ATwBWAEEAVABPAFIAXwBQAEMAMAAzAFwAQQByAHYAaQBuACAAVAByAGkAbgBpAGQAYQBkMB4XDTIwMDQxNDExMzUwOFoXDTIxMDQxNDE3MzUwOFowRTFDMEEGA1UEAx46AEkATgBOAE8AVgBBAFQATwBSAF8AUABDADAAMwBcAEEAcgB2AGkAbgAgAFQAcgBpAG4AaQBkAGEAZDCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEA2xRVoj7BhoKV4WGx9GPI1JvPJ2mZeDRcTIuOTh3QLcK2I6okbJz0eYBWcB4CiVVXE/4PKIWC7EQmLh6neQFogrqRUpRxGKxJzMGIKYqn8yoAaL23spDVqCDw7anitfGSkoFUtb5oe6DyPnlaPjDadu6wkAafeXrB1T9apZZz5jkCAwEAATANBgkqhkiG9w0BAQsFAAOBgQAdMepUtViQgTnVT/2N3PkZka50GiIlL2J4OEtSkKhBae/xZ+CQ1nrwuzZWtNbeT/uuZ0VH/9vw34cIjb6jKwURHo7Xpfh+QwZ5zw1qNi8JTDQj5jncyCmsoM0+hH9Id2qeJiM15EEWXwOzkKaatFy9GKOOnPuoFqqwqQ8ZjZzOXA==</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>
