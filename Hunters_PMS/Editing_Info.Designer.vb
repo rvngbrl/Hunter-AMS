@@ -255,6 +255,7 @@ Partial Class Editing_Info
         Me.Label1 = New System.Windows.Forms.Label()
         Me.DocCertView = New System.Windows.Forms.DataGridView()
         Me.Label13 = New System.Windows.Forms.Label()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.Panel1.SuspendLayout()
         CType(Me.BunifuImageButton6, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.HomeBtn, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -4028,12 +4029,20 @@ Partial Class Editing_Info
         Me.Label13.TabIndex = 25
         Me.Label13.Text = "NUMBER"
         '
+        'TextBox1
+        '
+        Me.TextBox1.Location = New System.Drawing.Point(867, 189)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(100, 20)
+        Me.TextBox1.TabIndex = 345
+        '
         'Editing_Info
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(41, Byte), Integer), CType(CType(53, Byte), Integer), CType(CType(65, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(1247, 681)
+        Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.PrintCvBtn)
         Me.Controls.Add(Me.AppLastStat)
         Me.Controls.Add(Me.BunifuFlatButton2)
@@ -4320,4 +4329,5 @@ Partial Class Editing_Info
     Friend WithEvents doccertexpiry As Bunifu.Framework.UI.BunifuDatepicker
     Friend WithEvents doccertissued As Bunifu.Framework.UI.BunifuDatepicker
     Friend WithEvents KinID As Label
+    Friend WithEvents TextBox1 As TextBox
 End Class

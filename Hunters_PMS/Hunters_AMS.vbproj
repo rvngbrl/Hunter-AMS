@@ -25,11 +25,11 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <UpdateUrl>\\192.168.11.22\Hunters_PMS\Hunters_PMS\publish\</UpdateUrl>
+    <UpdateUrl>\\192.168.11.22\RVNGBRL\GitHub\Hunter-AMS\</UpdateUrl>
     <ProductName>PMS</ProductName>
     <PublisherName>IT Unit</PublisherName>
     <SuiteName>Arvin Jomel Coi</SuiteName>
-    <ApplicationRevision>112</ApplicationRevision>
+    <ApplicationRevision>119</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -88,6 +88,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Bunifu_UI_v1.5.3">

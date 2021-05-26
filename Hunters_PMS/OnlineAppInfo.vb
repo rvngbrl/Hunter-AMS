@@ -12,10 +12,15 @@ Public Class OnlineAppInfo
     Public Property rankID As String
     Dim conn As OdbcConnection = New OdbcConnection("Dsn=csi_accounting;database=csiaccountingdb;port=3306;server=192.168.11.3;uid=crystal_admin;")
 
-    Dim AppOID, LName, FName, Mname, Position, Contact, Email, BPlace As String
-    Dim BDay, DApplied As Date
-    'crewdoc
-    Dim docid, docname, docshortcut, docno, docplace, docexpired, doccountry, crewdocid, docstatus, dateexpired As String
+    Dim AppOID, LName, FName, Mname, Position, Contact, Email, BPlace, Suit, Waist, Shoe, DMark, HColor As String 'Applicant Information
+    Dim BDay, kinBday, DApplied As Date
+
+    Dim docid, docname, docshortcut, docno, docplace, docexpired, doccountry, crewdocid, docstatus, dateexpired As String 'Applicant Documents
+
+    Dim kinRelation, kinLName, kinFName, kinMName, kinContact, kinPassport As String 'Family Information
+
+    Dim refName, refAddress, refCPerson, refCPersonNo, refEmail, refStatus As String 'Character Reference
+
 
     Private Sub btnCharRef_Click(sender As Object, e As EventArgs) Handles btnCharRef.Click
         refLabel.ResetText()
@@ -181,18 +186,18 @@ Public Class OnlineAppInfo
         If Checker <= 0 Then
             Dim ask As MsgBoxResult = MsgBox("Are you sure you want to transfer this applicant without a complete application?", MsgBoxStyle.YesNo)
             If ask = MsgBoxResult.Yes Then
-
+                Checking()
             End If
         Else
             Dim ask As MsgBoxResult = MsgBox("Complete", MsgBoxStyle.YesNo)
             If ask = MsgBoxResult.Yes Then
-
+                Checking()
             End If
         End If
 
 
 
-        'Checking()
+
 
 
     End Sub
@@ -217,7 +222,7 @@ Public Class OnlineAppInfo
         Else
 
             Dim queryApp As String
-            queryApp = "Select App_PositionApplied, App_LName,App_FName,App_Mname, App_MobileNo, App_EmailAdd, App_Bday, App_BPlace,App_DateApplied  from web.applicant_info where App_ID= '" & GetOAppID & "';"
+            queryApp = "Select App_PositionApplied, App_LName,App_FName,App_Mname, App_MobileNo, App_EmailAdd, App_Bday, App_BPlace,App_DateApplied,App_Suit,App_Waist,App_Shoe,App_DMark,App_HColor  from web.applicant_info where App_ID= '" & GetOAppID & "';"
             Dim queryAppcmd As OdbcCommand
             queryAppcmd = New OdbcCommand(queryApp, conn)
             Dim Appreader As OdbcDataReader = queryAppcmd.ExecuteReader()
@@ -232,6 +237,11 @@ Public Class OnlineAppInfo
                 BDay = Appreader.Item("App_Bday").Date.ToString()
                 BPlace = Appreader.Item("App_BPlace").ToString()
                 DApplied = Appreader.Item("App_DateApplied").ToString()
+                Suit = Appreader.Item("App_Suit").ToString()
+                Waist = Appreader.Item("App_Waist").ToString()
+                Shoe = Appreader.Item("App_Shoe").ToString()
+                DMark = Appreader.Item("App_DMark").ToString()
+                HColor = Appreader.Item("App_HColor").ToString()
 
                 ' MsgBox(GetOAppID)
 
@@ -263,7 +273,7 @@ Public Class OnlineAppInfo
     Private Sub insertInfoAMS()
 
         Dim AppInfoIns As String
-        AppInfoIns = ("INSERT INTO hunters_pooling.applicant_info(App_LName,App_FName,App_MName,App_Suffix,App_Status,App_Bday,App_ContactNo,App_LastDisembark,App_RankID) VALUES (?,?,?,?,?,?,?,?,?)")
+        AppInfoIns = ("INSERT INTO hunters_pooling.applicant_info(App_LName,App_FName,App_MName,App_Suffix,App_Status,App_Bday,App_ContactNo,App_LastDisembark,App_RankID,App_SuitSize,App_WaisteSize,App_ShoeSize,App_Mark,App_HairColor) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)")
         Dim AppInfocmd As OdbcCommand = New OdbcCommand(AppInfoIns, conn)
 
         AppInfocmd.Parameters.Add(New OdbcParameter("@App_LName", CType(LName, String)))
@@ -275,6 +285,11 @@ Public Class OnlineAppInfo
         AppInfocmd.Parameters.Add(New OdbcParameter("@App_ContactNo", CType(Contact, String)))
         AppInfocmd.Parameters.Add(New OdbcParameter("@App_LastDisembark", CType(DisembarkDatePick.Value.Date.ToString("yyyy-MM-dd"), Date)))
         AppInfocmd.Parameters.Add(New OdbcParameter("@App_RankID", CType(rankID, String)))
+        AppInfocmd.Parameters.Add(New OdbcParameter("@App_Suit", CType(Suit, String)))
+        AppInfocmd.Parameters.Add(New OdbcParameter("@App_WaisteSize", CType(Waist, String)))
+        AppInfocmd.Parameters.Add(New OdbcParameter("@App_ShoeSize", CType(Shoe, String)))
+        AppInfocmd.Parameters.Add(New OdbcParameter("@App_Mark", CType(DMark, String)))
+        AppInfocmd.Parameters.Add(New OdbcParameter("@App_HairColor", CType(HColor, String)))
         AppInfocmd.ExecuteNonQuery()
         AppInfocmd.Dispose()
 
@@ -441,16 +456,87 @@ Public Class OnlineAppInfo
             IsrtDatacmd.Parameters.AddWithValue("@App_ID", CType(AppIDoutput, String))
             IsrtDatacmd.ExecuteNonQuery()
             IsrtDatacmd.Dispose()
+        End While
+        insertFamily()
+
+    End Sub
 
 
+    Private Sub insertFamily()
+        'Inserting Family Information
+        Dim selectFam As String
+        selectFam = "SELECT kin_Relation, kin_LName, kin_FName, kin_MName, kin_Bday,kin_Contact,kin_Passport FROM web.applicant_kin where App_ID='" & GetOAppID & "';"
+        Dim selFamcmd As OdbcCommand
+        selFamcmd = New OdbcCommand(selectFam, conn)
+        Dim selFamReader As OdbcDataReader = selFamcmd.ExecuteReader()
 
+        While selFamReader.Read()
+            kinRelation = selFamReader.Item("kin_Relation").ToString
+            kinLName = selFamReader.Item("kin_LName").ToString
+            kinFName = selFamReader.Item("kin_FNamen").ToString
+            kinMName = selFamReader.Item("kin_MName").ToString
+            kinBday = selFamReader.Item("kin_Bday").Date.ToString
+            kinContact = selFamReader.Item("kin_Contact").ToString
+            kinPassport = selFamReader.Item("kin_Passport").ToString
+
+            Dim insertFam As String
+
+            insertFam = ("INSERT INTO hunters_pooling.applicant_family(appkin_Relation,appkin_LName,appkin_FName,appkin_MName,appkin_Bday,appkin_ContactNo,appkin_Status,appkin_Passport,
+                                   App_ID) VALUES (?,?,?,?,?,?,?,?,?)")
+            Dim insertFamcmd As OdbcCommand = New OdbcCommand(insertFam, conn)
+
+            insertFamcmd.Parameters.AddWithValue("@appkin_Relation", CType(kinRelation, String))
+            insertFamcmd.Parameters.AddWithValue("@appkin_LName", CType(kinLName, String))
+            insertFamcmd.Parameters.AddWithValue("@appkin_FName", CType(kinFName, String))
+            insertFamcmd.Parameters.AddWithValue("@appkin_MName", CType(kinMName, String))
+            insertFamcmd.Parameters.AddWithValue("@appkin_Bday", CType(kinBday.ToShortDateString, Date))
+            insertFamcmd.Parameters.AddWithValue("@appkin_ContactNo", CType(kinContact, String))
+            insertFamcmd.Parameters.AddWithValue("@appkin_Status", CType("ACTIVE", String))
+            insertFamcmd.Parameters.AddWithValue("@appkin_Passport", CType(kinPassport, String))
+            insertFamcmd.Parameters.AddWithValue("@App_ID", CType(AppIDoutput, String))
+            insertFamcmd.ExecuteNonQuery()
+            insertFamcmd.Dispose()
+
+
+        End While
+        insertReference()
+    End Sub
+
+
+    Private Sub insertReference()
+
+        Dim selRef As String
+        selRef = "Select ref_Name, ref_Address, ref_CPerson, ref_CPersonNo, ref_Email, ref_Status From web.applicant_reference where App_ID='" & GetOAppID & "';"
+        Dim selRefcmd As OdbcCommand
+        selRefcmd = New OdbcCommand(selRef, conn)
+        Dim selRefreader As OdbcDataReader = selRefcmd.ExecuteReader()
+
+        While selRefreader.Read()
+            refName = selRefreader.Item("ref_Name").ToString
+            refAddress = selRefreader.Item("ref_Address").ToString
+            refCPerson = selRefreader.Item("ref_CPerson").ToString
+            refCPersonNo = selRefreader.Item("ref_CPersonNo").ToString
+            refEmail = selRefreader.Item("ref_Email").ToString
+            refStatus = selRefreader.Item("ref_Status").ToString
+
+            Dim insertRef As String
+            insertRef = ("INSERT INTO hunters_pooling.applicant_reference(Ref_Name, Ref_Address, Ref_CPerson, Ref_Number, Ref_Email, Ref_Type,
+                                   App_ID) VALUES (?,?,?,?,?,?,?)")
+            Dim insertRefcmd As OdbcCommand = New OdbcCommand(insertRef, conn)
+            insertRefcmd.Parameters.AddWithValue("@Ref_Name", CType(refName, String))
+            insertRefcmd.Parameters.AddWithValue("@Ref_Address", CType(refAddress, String))
+            insertRefcmd.Parameters.AddWithValue("@Ref_CPerson", CType(refCPerson, String))
+            insertRefcmd.Parameters.AddWithValue("@Ref_Number", CType(refCPersonNo, String))
+            insertRefcmd.Parameters.AddWithValue("@Ref_Email", CType(refEmail, String))
+            insertRefcmd.Parameters.AddWithValue("@Ref_Type", CType(refStatus, String))
+            insertRefcmd.ExecuteNonQuery()
+            insertRefcmd.Dispose()
 
 
         End While
         MsgBox("Applicant Succesfuly Transferrd to AMS.")
+
     End Sub
-
-
 
 
 End Class

@@ -23,9 +23,9 @@ Partial Class OnlineAppInfo
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(OnlineAppInfo))
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -51,8 +51,8 @@ Partial Class OnlineAppInfo
         Me.Label6 = New System.Windows.Forms.Label()
         Me.DCerts_Btn = New Bunifu.Framework.UI.BunifuFlatButton()
         Me.printdocert = New Bunifu.Framework.UI.BunifuGradientPanel()
-        Me.DocCertView = New System.Windows.Forms.DataGridView()
         Me.SBDGView = New System.Windows.Forms.DataGridView()
+        Me.DocCertView = New System.Windows.Forms.DataGridView()
         Me.SBoard_Btn = New Bunifu.Framework.UI.BunifuFlatButton()
         Me.AprvBtn = New Bunifu.Framework.UI.BunifuFlatButton()
         Me.BunifuDragControl2 = New Bunifu.Framework.UI.BunifuDragControl(Me.components)
@@ -68,17 +68,17 @@ Partial Class OnlineAppInfo
         Me.DisembarkDatePick = New System.Windows.Forms.DateTimePicker()
         Me.btnRef = New Bunifu.Framework.UI.BunifuFlatButton()
         Me.refPanel = New Bunifu.Framework.UI.BunifuGradientPanel()
-        Me.famDGView = New System.Windows.Forms.DataGridView()
-        Me.refLabel = New System.Windows.Forms.Label()
-        Me.btnFamilyInfo = New Bunifu.Framework.UI.BunifuFlatButton()
         Me.btnCharRef = New Bunifu.Framework.UI.BunifuFlatButton()
+        Me.btnFamilyInfo = New Bunifu.Framework.UI.BunifuFlatButton()
+        Me.refLabel = New System.Windows.Forms.Label()
+        Me.famDGView = New System.Windows.Forms.DataGridView()
         Me.crDGView = New System.Windows.Forms.DataGridView()
         CType(Me.BunifuImageButton1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
         CType(Me.Closebtn, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.printdocert.SuspendLayout()
-        CType(Me.DocCertView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.SBDGView, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.DocCertView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.refPanel.SuspendLayout()
         CType(Me.famDGView, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.crDGView, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -383,6 +383,27 @@ Partial Class OnlineAppInfo
         Me.printdocert.Size = New System.Drawing.Size(636, 315)
         Me.printdocert.TabIndex = 245
         '
+        'SBDGView
+        '
+        Me.SBDGView.AllowUserToDeleteRows = False
+        Me.SBDGView.AllowUserToOrderColumns = True
+        Me.SBDGView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle5.NullValue = Nothing
+        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.SBDGView.DefaultCellStyle = DataGridViewCellStyle5
+        Me.SBDGView.Location = New System.Drawing.Point(12, 16)
+        Me.SBDGView.Name = "SBDGView"
+        Me.SBDGView.RowHeadersVisible = False
+        Me.SBDGView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
+        Me.SBDGView.Size = New System.Drawing.Size(608, 285)
+        Me.SBDGView.TabIndex = 248
+        '
         'DocCertView
         '
         Me.DocCertView.AllowUserToAddRows = False
@@ -419,27 +440,6 @@ Partial Class OnlineAppInfo
         Me.DocCertView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.DocCertView.Size = New System.Drawing.Size(608, 285)
         Me.DocCertView.TabIndex = 247
-        '
-        'SBDGView
-        '
-        Me.SBDGView.AllowUserToDeleteRows = False
-        Me.SBDGView.AllowUserToOrderColumns = True
-        Me.SBDGView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle5.NullValue = Nothing
-        DataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.SBDGView.DefaultCellStyle = DataGridViewCellStyle5
-        Me.SBDGView.Location = New System.Drawing.Point(12, 16)
-        Me.SBDGView.Name = "SBDGView"
-        Me.SBDGView.RowHeadersVisible = False
-        Me.SBDGView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect
-        Me.SBDGView.Size = New System.Drawing.Size(608, 285)
-        Me.SBDGView.TabIndex = 248
         '
         'SBoard_Btn
         '
@@ -683,6 +683,86 @@ Partial Class OnlineAppInfo
         Me.refPanel.Size = New System.Drawing.Size(636, 315)
         Me.refPanel.TabIndex = 249
         '
+        'btnCharRef
+        '
+        Me.btnCharRef.Activecolor = System.Drawing.Color.FromArgb(CType(CType(229, Byte), Integer), CType(CType(126, Byte), Integer), CType(CType(49, Byte), Integer))
+        Me.btnCharRef.BackColor = System.Drawing.Color.FromArgb(CType(CType(229, Byte), Integer), CType(CType(126, Byte), Integer), CType(CType(49, Byte), Integer))
+        Me.btnCharRef.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.btnCharRef.BorderRadius = 0
+        Me.btnCharRef.ButtonText = "Character Ref"
+        Me.btnCharRef.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnCharRef.DisabledColor = System.Drawing.Color.Gray
+        Me.btnCharRef.Iconcolor = System.Drawing.Color.Transparent
+        Me.btnCharRef.Iconimage = Nothing
+        Me.btnCharRef.Iconimage_right = Nothing
+        Me.btnCharRef.Iconimage_right_Selected = Nothing
+        Me.btnCharRef.Iconimage_Selected = Nothing
+        Me.btnCharRef.IconMarginLeft = 0
+        Me.btnCharRef.IconMarginRight = 0
+        Me.btnCharRef.IconRightVisible = True
+        Me.btnCharRef.IconRightZoom = 0R
+        Me.btnCharRef.IconVisible = True
+        Me.btnCharRef.IconZoom = 90.0R
+        Me.btnCharRef.IsTab = False
+        Me.btnCharRef.Location = New System.Drawing.Point(516, 276)
+        Me.btnCharRef.Name = "btnCharRef"
+        Me.btnCharRef.Normalcolor = System.Drawing.Color.FromArgb(CType(CType(229, Byte), Integer), CType(CType(126, Byte), Integer), CType(CType(49, Byte), Integer))
+        Me.btnCharRef.OnHovercolor = System.Drawing.Color.FromArgb(CType(CType(36, Byte), Integer), CType(CType(129, Byte), Integer), CType(CType(77, Byte), Integer))
+        Me.btnCharRef.OnHoverTextColor = System.Drawing.Color.White
+        Me.btnCharRef.selected = False
+        Me.btnCharRef.Size = New System.Drawing.Size(102, 36)
+        Me.btnCharRef.TabIndex = 371
+        Me.btnCharRef.Text = "Character Ref"
+        Me.btnCharRef.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.btnCharRef.Textcolor = System.Drawing.Color.White
+        Me.btnCharRef.TextFont = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        '
+        'btnFamilyInfo
+        '
+        Me.btnFamilyInfo.Activecolor = System.Drawing.Color.FromArgb(CType(CType(229, Byte), Integer), CType(CType(126, Byte), Integer), CType(CType(49, Byte), Integer))
+        Me.btnFamilyInfo.BackColor = System.Drawing.Color.FromArgb(CType(CType(229, Byte), Integer), CType(CType(126, Byte), Integer), CType(CType(49, Byte), Integer))
+        Me.btnFamilyInfo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.btnFamilyInfo.BorderRadius = 0
+        Me.btnFamilyInfo.ButtonText = "Family Info"
+        Me.btnFamilyInfo.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.btnFamilyInfo.DisabledColor = System.Drawing.Color.Gray
+        Me.btnFamilyInfo.Iconcolor = System.Drawing.Color.Transparent
+        Me.btnFamilyInfo.Iconimage = Nothing
+        Me.btnFamilyInfo.Iconimage_right = Nothing
+        Me.btnFamilyInfo.Iconimage_right_Selected = Nothing
+        Me.btnFamilyInfo.Iconimage_Selected = Nothing
+        Me.btnFamilyInfo.IconMarginLeft = 0
+        Me.btnFamilyInfo.IconMarginRight = 0
+        Me.btnFamilyInfo.IconRightVisible = True
+        Me.btnFamilyInfo.IconRightZoom = 0R
+        Me.btnFamilyInfo.IconVisible = True
+        Me.btnFamilyInfo.IconZoom = 90.0R
+        Me.btnFamilyInfo.IsTab = False
+        Me.btnFamilyInfo.Location = New System.Drawing.Point(408, 276)
+        Me.btnFamilyInfo.Name = "btnFamilyInfo"
+        Me.btnFamilyInfo.Normalcolor = System.Drawing.Color.FromArgb(CType(CType(229, Byte), Integer), CType(CType(126, Byte), Integer), CType(CType(49, Byte), Integer))
+        Me.btnFamilyInfo.OnHovercolor = System.Drawing.Color.FromArgb(CType(CType(36, Byte), Integer), CType(CType(129, Byte), Integer), CType(CType(77, Byte), Integer))
+        Me.btnFamilyInfo.OnHoverTextColor = System.Drawing.Color.White
+        Me.btnFamilyInfo.selected = False
+        Me.btnFamilyInfo.Size = New System.Drawing.Size(102, 36)
+        Me.btnFamilyInfo.TabIndex = 370
+        Me.btnFamilyInfo.Text = "Family Info"
+        Me.btnFamilyInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.btnFamilyInfo.Textcolor = System.Drawing.Color.White
+        Me.btnFamilyInfo.TextFont = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        '
+        'refLabel
+        '
+        Me.refLabel.AutoSize = True
+        Me.refLabel.BackColor = System.Drawing.Color.White
+        Me.refLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.refLabel.ForeColor = System.Drawing.Color.FromArgb(CType(CType(229, Byte), Integer), CType(CType(126, Byte), Integer), CType(CType(49, Byte), Integer))
+        Me.refLabel.Location = New System.Drawing.Point(16, 11)
+        Me.refLabel.Name = "refLabel"
+        Me.refLabel.Size = New System.Drawing.Size(180, 24)
+        Me.refLabel.TabIndex = 370
+        Me.refLabel.Text = "Family Information"
+        '
         'famDGView
         '
         Me.famDGView.AllowUserToAddRows = False
@@ -719,86 +799,6 @@ Partial Class OnlineAppInfo
         Me.famDGView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.famDGView.Size = New System.Drawing.Size(605, 230)
         Me.famDGView.TabIndex = 247
-        '
-        'refLabel
-        '
-        Me.refLabel.AutoSize = True
-        Me.refLabel.BackColor = System.Drawing.Color.White
-        Me.refLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.refLabel.ForeColor = System.Drawing.Color.FromArgb(CType(CType(229, Byte), Integer), CType(CType(126, Byte), Integer), CType(CType(49, Byte), Integer))
-        Me.refLabel.Location = New System.Drawing.Point(16, 11)
-        Me.refLabel.Name = "refLabel"
-        Me.refLabel.Size = New System.Drawing.Size(180, 24)
-        Me.refLabel.TabIndex = 370
-        Me.refLabel.Text = "Family Information"
-        '
-        'btnFamilyInfo
-        '
-        Me.btnFamilyInfo.Activecolor = System.Drawing.Color.FromArgb(CType(CType(229, Byte), Integer), CType(CType(126, Byte), Integer), CType(CType(49, Byte), Integer))
-        Me.btnFamilyInfo.BackColor = System.Drawing.Color.FromArgb(CType(CType(229, Byte), Integer), CType(CType(126, Byte), Integer), CType(CType(49, Byte), Integer))
-        Me.btnFamilyInfo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btnFamilyInfo.BorderRadius = 0
-        Me.btnFamilyInfo.ButtonText = "Family Info"
-        Me.btnFamilyInfo.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnFamilyInfo.DisabledColor = System.Drawing.Color.Gray
-        Me.btnFamilyInfo.Iconcolor = System.Drawing.Color.Transparent
-        Me.btnFamilyInfo.Iconimage = Nothing
-        Me.btnFamilyInfo.Iconimage_right = Nothing
-        Me.btnFamilyInfo.Iconimage_right_Selected = Nothing
-        Me.btnFamilyInfo.Iconimage_Selected = Nothing
-        Me.btnFamilyInfo.IconMarginLeft = 0
-        Me.btnFamilyInfo.IconMarginRight = 0
-        Me.btnFamilyInfo.IconRightVisible = True
-        Me.btnFamilyInfo.IconRightZoom = 0R
-        Me.btnFamilyInfo.IconVisible = True
-        Me.btnFamilyInfo.IconZoom = 90.0R
-        Me.btnFamilyInfo.IsTab = False
-        Me.btnFamilyInfo.Location = New System.Drawing.Point(408, 276)
-        Me.btnFamilyInfo.Name = "btnFamilyInfo"
-        Me.btnFamilyInfo.Normalcolor = System.Drawing.Color.FromArgb(CType(CType(229, Byte), Integer), CType(CType(126, Byte), Integer), CType(CType(49, Byte), Integer))
-        Me.btnFamilyInfo.OnHovercolor = System.Drawing.Color.FromArgb(CType(CType(36, Byte), Integer), CType(CType(129, Byte), Integer), CType(CType(77, Byte), Integer))
-        Me.btnFamilyInfo.OnHoverTextColor = System.Drawing.Color.White
-        Me.btnFamilyInfo.selected = False
-        Me.btnFamilyInfo.Size = New System.Drawing.Size(102, 36)
-        Me.btnFamilyInfo.TabIndex = 370
-        Me.btnFamilyInfo.Text = "Family Info"
-        Me.btnFamilyInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.btnFamilyInfo.Textcolor = System.Drawing.Color.White
-        Me.btnFamilyInfo.TextFont = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        '
-        'btnCharRef
-        '
-        Me.btnCharRef.Activecolor = System.Drawing.Color.FromArgb(CType(CType(229, Byte), Integer), CType(CType(126, Byte), Integer), CType(CType(49, Byte), Integer))
-        Me.btnCharRef.BackColor = System.Drawing.Color.FromArgb(CType(CType(229, Byte), Integer), CType(CType(126, Byte), Integer), CType(CType(49, Byte), Integer))
-        Me.btnCharRef.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.btnCharRef.BorderRadius = 0
-        Me.btnCharRef.ButtonText = "Character Ref"
-        Me.btnCharRef.Cursor = System.Windows.Forms.Cursors.Hand
-        Me.btnCharRef.DisabledColor = System.Drawing.Color.Gray
-        Me.btnCharRef.Iconcolor = System.Drawing.Color.Transparent
-        Me.btnCharRef.Iconimage = Nothing
-        Me.btnCharRef.Iconimage_right = Nothing
-        Me.btnCharRef.Iconimage_right_Selected = Nothing
-        Me.btnCharRef.Iconimage_Selected = Nothing
-        Me.btnCharRef.IconMarginLeft = 0
-        Me.btnCharRef.IconMarginRight = 0
-        Me.btnCharRef.IconRightVisible = True
-        Me.btnCharRef.IconRightZoom = 0R
-        Me.btnCharRef.IconVisible = True
-        Me.btnCharRef.IconZoom = 90.0R
-        Me.btnCharRef.IsTab = False
-        Me.btnCharRef.Location = New System.Drawing.Point(516, 276)
-        Me.btnCharRef.Name = "btnCharRef"
-        Me.btnCharRef.Normalcolor = System.Drawing.Color.FromArgb(CType(CType(229, Byte), Integer), CType(CType(126, Byte), Integer), CType(CType(49, Byte), Integer))
-        Me.btnCharRef.OnHovercolor = System.Drawing.Color.FromArgb(CType(CType(36, Byte), Integer), CType(CType(129, Byte), Integer), CType(CType(77, Byte), Integer))
-        Me.btnCharRef.OnHoverTextColor = System.Drawing.Color.White
-        Me.btnCharRef.selected = False
-        Me.btnCharRef.Size = New System.Drawing.Size(102, 36)
-        Me.btnCharRef.TabIndex = 371
-        Me.btnCharRef.Text = "Character Ref"
-        Me.btnCharRef.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.btnCharRef.Textcolor = System.Drawing.Color.White
-        Me.btnCharRef.TextFont = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         '
         'crDGView
         '
@@ -875,14 +875,14 @@ Partial Class OnlineAppInfo
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Name = "OnlineAppInfo"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "OnlineAppInfo"
+        Me.Text = " "
         CType(Me.BunifuImageButton1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
         CType(Me.Closebtn, System.ComponentModel.ISupportInitialize).EndInit()
         Me.printdocert.ResumeLayout(False)
-        CType(Me.DocCertView, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.SBDGView, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.DocCertView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.refPanel.ResumeLayout(False)
         Me.refPanel.PerformLayout()
         CType(Me.famDGView, System.ComponentModel.ISupportInitialize).EndInit()

@@ -838,8 +838,8 @@ Public Class Editing_Info
 
                 '& doccertissued.Value.Date.ToString("yyyy-MM-dd") & "',
                 Try
-                    datein = Convert.ToDateTime(dateTimePicker1.Value.Date.ToString("yyyy-MM-dd")).ToShortDateString
-                    dateout = Convert.ToDateTime(dateTimePicker2.Value.Date.ToString("yyyy-MM-dd")).ToShortDateString
+                    datein = Convert.ToDateTime(conDate1.ToString("yyyy-MM-dd")).ToShortDateString
+                    dateout = Convert.ToDateTime(conDate2.ToString("yyyy-MM-dd")).ToShortDateString
                     UpdateDataStr = " Update hunters_pooling.applicant_seaservice SET App_PrincipalName= '" & row.Cells(1).Value.ToString() & "',
                         App_VesselName ='" & row.Cells(2).Value.ToString() & "', 
                       App_ImportFlag='" & row.Cells(3).Value.ToString() & "',
@@ -928,8 +928,8 @@ Public Class Editing_Info
                     IsrtDatacmd.Parameters.AddWithValue("@App_EngineType", CType(SBDGView.Rows(ctr).Cells(9).Value.ToString(), String))
                     IsrtDatacmd.Parameters.AddWithValue("@App_BHP", CType(SBDGView.Rows(ctr).Cells(10).Value.ToString(), String))
                     IsrtDatacmd.Parameters.AddWithValue("@App_KW", CType(SBDGView.Rows(ctr).Cells(11).Value.ToString(), String))
-                    IsrtDatacmd.Parameters.AddWithValue("@App_DateSignedON", CType(Convert.ToDateTime(dateTimePicker1.Value.Date.ToString("yyyy-MM-dd")).ToShortDateString, Date))
-                    IsrtDatacmd.Parameters.AddWithValue("@App_DateSignedOFF", CType(Convert.ToDateTime(dateTimePicker2.Value.Date.ToString("yyyy-MM-dd")).ToShortDateString, Date))
+                    IsrtDatacmd.Parameters.AddWithValue("@App_DateSignedON", CType(Convert.ToDateTime(conDate1.ToString("yyyy-MM-dd")).ToShortDateString, Date))
+                    IsrtDatacmd.Parameters.AddWithValue("@App_DateSignedOFF", CType(Convert.ToDateTime(conDate2.ToString("yyyy-MM-dd")).ToShortDateString, Date))
                     IsrtDatacmd.Parameters.AddWithValue("@App_Duration", CType(SBDGView.Rows(ctr).Cells(14).Value.ToString(), String))
                     IsrtDatacmd.Parameters.AddWithValue("@App_Reason", CType(SBDGView.Rows(ctr).Cells(15).Value.ToString(), String))
                     IsrtDatacmd.Parameters.AddWithValue("@App_TradingRoute", CType(SBDGView.Rows(ctr).Cells(16).Value.ToString(), String))
@@ -956,8 +956,8 @@ Public Class Editing_Info
                 conn.Open()
             End If
             Dim datein, dateout As Date
-            datein = Convert.ToDateTime(dateTimePicker1.Value.Date.ToString("yyyy-MM-dd")).ToShortDateString
-            dateout = Convert.ToDateTime(dateTimePicker2.Value.Date.ToString("yyyy-MM-dd")).ToShortDateString
+            datein = Convert.ToDateTime(conDate1.ToString("yyyy-MM-dd")).ToShortDateString
+            dateout = Convert.ToDateTime(conDate2.ToString("yyyy-MM-dd")).ToShortDateString
             Dim UpdateDataStr As String
             'Query for count row of SeaService
             Dim SSstr As String
@@ -2393,11 +2393,6 @@ appkin_ExpiryDate='" & Kin_ExpiryDate.Value.Date.ToString("yyyy-MM-dd") & "'
         End If
     End Sub
 
-    Private Sub SBSaveBtn_Click_1(sender As Object, e As EventArgs) Handles SBSaveBtn.Click
-
-    End Sub
-
-
 
     Private Sub BunifuFlatButton1_Click_2(sender As Object, e As EventArgs) Handles BunifuFlatButton1.Click
         RefLEN.ResetText()
@@ -2430,46 +2425,15 @@ appkin_ExpiryDate='" & Kin_ExpiryDate.Value.Date.ToString("yyyy-MM-dd") & "'
 
 
 
-    Private dateTimePicker1 As DateTimePicker
-    Private dateTimePicker2 As DateTimePicker
+    'Private dateTimePicker1 As DateTimePicker
+    'Private dateTimePicker2 As DateTimePicker
 
-
-
-
-    Private Sub DateTimePickerChange1(ByVal sender As Object, ByVal e As EventArgs)
-        SBDGView.CurrentCell.Value = dateTimePicker1.Text.ToString()
-
-    End Sub
-    Private Sub DateTimePickerChange2(ByVal sender As Object, ByVal e As EventArgs)
-        SBDGView.CurrentCell.Value = dateTimePicker2.Text.ToString()
-
-    End Sub
-
-    'Private Sub DateTimePicker1_ValueChanged(ByVal sender As Object, ByVal e As EventArgs)
-
-    '    If SBDGView.RowCount > 0 Then 'JUST TO AVOID FORM LOAD CRASH
-
-    '        SBDGView.CurrentCell.Value = dateTimePicker1.Value.ToShortDateString
-    '        dateTimePicker1.Visible = False
-
-    '    End If
-    'End Sub
-
-    Private Sub DateTimePickerScroll1(ByVal sender As Object, ByVal e As EventArgs)
-        dateTimePicker1.Visible = False
-    End Sub
-    Private Sub DateTimePickerScroll2(ByVal sender As Object, ByVal e As EventArgs)
-        dateTimePicker2.Visible = False
-    End Sub
-
-    Private Sub SBDGView_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles SBDGView.CellContentClick
-
-    End Sub
-
+    Private conDate1 As DateTime
+    Private conDate2 As DateTime
 
 
     Private Sub SBDGView_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles SBDGView.CellClick
-
+        'This Is Problem
         selectedRowIndex = e.RowIndex
 
         If Not e.RowIndex = -1 Then
@@ -2477,71 +2441,71 @@ appkin_ExpiryDate='" & Kin_ExpiryDate.Value.Date.ToString("yyyy-MM-dd") & "'
 
 
             If e.ColumnIndex = 12 Then
+                If SBDGView.Rows(e.RowIndex).Cells(12).Value.ToString.Equals("") Then
+                    SBDGView.Rows.Item(e.RowIndex).Cells(12).Value = "dd-MMM-yyyy"
+                End If
 
-                dateTimePicker1 = New DateTimePicker()
-                SBDGView.Controls.Add(dateTimePicker1)
-                dateTimePicker1.Format = DateTimePickerFormat.Short
-                Dim oRectangle As Rectangle = SBDGView.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, True)
-                dateTimePicker1.Size = New Size(oRectangle.Width, oRectangle.Height)
-                dateTimePicker1.Location = New Point(oRectangle.X, oRectangle.Y)
-                AddHandler dateTimePicker1.TextChanged, AddressOf DateTimePickerChange1
-                AddHandler SBDGView.Scroll, AddressOf DateTimePickerScroll1
+                'dateTimePicker1 = New DateTimePicker()
+                'SBDGView.Controls.Add(dateTimePicker1)
+                'dateTimePicker1.Format = DateTimePickerFormat.Short
+                'Dim oRectangle As Rectangle = SBDGView.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, True)
+                'dateTimePicker1.Size = New Size(oRectangle.Width, oRectangle.Height)
+                'dateTimePicker1.Location = New Point(oRectangle.X, oRectangle.Y)
+                'AddHandler dateTime Picker1.TextChanged, AddressOf DateTimePickerChange1
+                'AddHandler SBDGView.Scroll, AddressOf DateTimePickerScroll1
 
-
-
-                Try
-
-                    dateTimePicker2.Dispose()
-                Catch ex As Exception
-
-                End Try
-
+                'dateBox1 = New TextBox()
+                'SBDGView.Controls.Add(dateBox1)
+                'dateBox1.Text = 
+                'Dim oRectangle As Rectangle = SBDGView.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, True)
+                'dateBox1.Size = New Size(oRectangle.Width, oRectangle.Height)
+                'dateBox1.Location = New Point(oRectangle.X, oRectangle.Y)
+                'AddHandler dateTimePicker1.TextChanged, AddressOf DateTimePickerChange1
+                'AddHandler SBDGView.Scroll, AddressOf DateTimePickerScroll1    
 
             End If
             If e.ColumnIndex = 13 Then
-
-                dateTimePicker2 = New DateTimePicker()
-                SBDGView.Controls.Add(dateTimePicker2)
-                dateTimePicker2.Format = DateTimePickerFormat.Short
-                Dim oRectangle As Rectangle = SBDGView.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, True)
-                dateTimePicker2.Size = New Size(oRectangle.Width, oRectangle.Height)
-                dateTimePicker2.Location = New Point(oRectangle.X, oRectangle.Y)
-                AddHandler dateTimePicker2.TextChanged, AddressOf DateTimePickerChange2
-                AddHandler SBDGView.Scroll, AddressOf DateTimePickerScroll2
-
-                Try
-                    dateTimePicker1.Dispose()
-                Catch ex As Exception
-
-                End Try
-
-
+                If SBDGView.Rows(e.RowIndex).Cells(13).Value.ToString.Equals("") Then
+                    SBDGView.Rows.Item(e.RowIndex).Cells(13).Value = "dd-MMM-yyyy"
+                End If
+                'dateTimePicker2 = New DateTimePicker()
+                'SBDGView.Controls.Add(dateTimePicker2)
+                'dateTimePicker2.Format = DateTimePickerFormat.Short
+                'Dim oRectangle As Rectangle = SBDGView.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, True)
+                'dateTimePicker2.Size = New Size(oRectangle.Width, oRectangle.Height)
+                'dateTimePicker2.Location = New Point(oRectangle.X, oRectangle.Y)
+                'AddHandler dateTimePicker2.TextChanged, AddressOf DateTimePickerChange2
+                'AddHandler SBDGView.Scroll, AddressOf DateTimePickerScroll2
+                'SBDGView.Rows.Item(e.RowIndex).Cells(13).Value = SBDGView.Rows(e.RowIndex).Cells(12).Value
             End If
 
 
 
             If e.ColumnIndex = 14 Then
                 Dim inyear, outyear As Date
-                Dim tyear, tmonth, tday As String
+                ' Dim tyear, tmonth, tday As String
+
+                Try
+                    conDate1 = Convert.ToDateTime(SBDGView.Rows(e.RowIndex).Cells(12).Value)
+                    conDate2 = Convert.ToDateTime(SBDGView.Rows(e.RowIndex).Cells(13).Value)
+                    inyear = conDate1.ToString("dd-MMM-yyyy")
+                    outyear = conDate2.ToString("dd-MMM-yyyy")
+                Catch ex As Exception
+                    MsgBox("Please Input Sign On and Sign Off First")
+                End Try
+
 
                 '  doccertissued.Value.Date.ToString("yyyy-MM-dd")
-                inyear = Convert.ToDateTime(dateTimePicker1.Value.Date.ToString("yyyy-MM-dd")).ToShortDateString
-                outyear = Convert.ToDateTime(dateTimePicker2.Value.Date.ToString("yyyy-MM-dd")).ToShortDateString
+                'inyear = Convert.ToDateTime(SBDGView.Rows.Item(e.RowIndex).Cells(12).ToString("dd-MMM-yyyy")).ToShortDateString
+                'outyear = Convert.ToDateTime(SBDGView.Rows.Item(e.RowIndex).Cells(13).ToString("dd-MMM-yyyy")).ToShortDateString
 
                 Difference(inyear, outyear)
-
                 If year = 0 Then
-
                     SBDGView.Rows.Item(e.RowIndex).Cells(14).Value = Month.ToString + "." + Day.ToString
                 Else
                     SBDGView.Rows.Item(e.RowIndex).Cells(14).Value = Month.ToString + "." + Day.ToString
                 End If
-                Try
-                    dateTimePicker1.Dispose()
-                    dateTimePicker2.Dispose()
-                Catch ex As Exception
 
-                End Try
 
             End If
 
