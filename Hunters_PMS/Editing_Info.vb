@@ -33,6 +33,12 @@ Public Class Editing_Info
         Return (Replace(msData, "\", "\\"))
     End Function
 
+    Public Sub isConOpen()
+        If conn.State = ConnectionState.Closed Then
+            conn.Open()
+        End If
+    End Sub
+
     Private Sub Editing_Info_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         GetNewID = "New"
@@ -44,9 +50,7 @@ Public Class Editing_Info
         End If
 
 
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
-        End If
+        isConOpen()
 
         Dim rankID As String
         'Query for Crew Name
@@ -436,9 +440,7 @@ Public Class Editing_Info
 
         GetShipStat = "Simple"
 
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
-        End If
+        isConOpen()
 
         'Query For Shipboard (normal)
         Dim SbList As String
@@ -460,9 +462,7 @@ Public Class Editing_Info
 
     Private Sub AppGName_SelectedIndexChanged(sender As Object, e As EventArgs) Handles AppGName.SelectedIndexChanged
 
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
-        End If
+        isConOpen()
         AppDocTitle.Text = AppGName.Text
         Dim docertstr As String
         'Query For Selected Document
@@ -511,9 +511,7 @@ Public Class Editing_Info
 
     Private Sub updateappinfo()
         'Inserting Document and Cert
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
-        End If
+        isConOpen()
         Dim pool As String
         pool = "Pooling"
 
@@ -603,9 +601,7 @@ Public Class Editing_Info
         'Query for App_ID
         Dim checkID As String
         Dim appIDstr As String
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
-        End If
+        isConOpen()
 
         'Query Applicant Address
         appIDstr = "SELECT  App_ID FROM hunters_pooling.applicant_address where App_ID = '" & GetAppID & "';"
@@ -620,9 +616,7 @@ Public Class Editing_Info
 
         If checkID = GetAppID Then
             'Applicant Address Update
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
-            End If
+            isConOpen()
             Dim updateaddinfo As String
             updateaddinfo = " Update hunters_pooling.applicant_address SET App_ZipCode= '" & AppZipCode.Text & "', 
         App_City ='" & AppCity.Text & "', 
@@ -641,9 +635,7 @@ Public Class Editing_Info
 
         Else
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
-            End If
+            isConOpen()
             'Applicant Insert Address
             Dim insertaddinfo As String
             insertaddinfo = ("INSERT INTO hunters_pooling.applicant_address(App_ZipCode, App_City, App_Barangay, App_Province, App_Country ,App_CountryCode ,App_Street ,App_Address2 ,App_ID) " &
@@ -739,7 +731,6 @@ Public Class Editing_Info
 
     Private Sub AprvBtn_Click(sender As Object, e As EventArgs) Handles AprvBtn.Click
         '////////////////update also the app endorsed status if the applicant is approved 
-
         Dim OBJ As New Approve_Message()
         OBJ.username = UserText
         OBJ.GetAppID = AppIDIdentifier.Text
@@ -752,18 +743,15 @@ Public Class Editing_Info
         'Query For Endorse_History
         Dim endorsestr As String
         GetKinStat = "Insert"
-
         endorsestr = "SELECT AppDateEndorse as 'Date Endorse', AppPrincipalEndorse as 'Principal',AppStatus as 'Status ',App_Remarks as 'Remarks',RepsEndorser as 'Endorser' FROM hunters_pooling.applicant_endorse where App_ID=" & GetAppID & ";"
         Dim appendrList As New DataTable("applicant_endorse")
         Dim appendradapter As New Odbc.OdbcDataAdapter(endorsestr, conn)
         appendradapter.Fill(appendrList)
         EndorseDGView.DataSource = appendrList
         appendradapter.Dispose()
-
         History_Tab.Visible() = True
         printdocert.Visible() = False
         AppIDIdentifier.Visible() = False
-
         SBoardT_Tab.Visible() = False
         '\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\Endorsed History\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
@@ -776,13 +764,7 @@ Public Class Editing_Info
         kinadapter.Fill(kinList)
         FamilyInfoDGView.DataSource = kinList
         kinadapter.Dispose()
-
-
         '\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\familyinfo\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
-
-
-
     End Sub
 
 
@@ -793,22 +775,13 @@ Public Class Editing_Info
 
         'select the next row for 
         Me.SBDGView.CurrentCell = Me.SBDGView(1, Me.SBDGView.NewRowIndex)
-
-
-        ''Validate Status First 
-
+        'Validate Status First 
         If GetShipStat.Equals("Simple") Then
-
-
-
-
             'INSERTING SHIPBOARD Expi
             Dim InsertDataStr As String
             Dim UpdateDataStr As String
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
-            End If
+            isConOpen()
 
             'Query for count row of SeaService
             Dim SSstr As String
@@ -826,17 +799,10 @@ Public Class Editing_Info
             Dim i As Integer = SBDGView.Rows.Count - 1
 
             If i = sscounter Then
-
+                isConOpen()
                 Dim row As New DataGridViewRow()
                 row = SBDGView.Rows(selectedRowIndex)
-
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
-                End If
                 Dim datein, dateout As Date
-
-
-                '& doccertissued.Value.Date.ToString("yyyy-MM-dd") & "',
                 Try
                     datein = Convert.ToDateTime(conDate1.ToString("yyyy-MM-dd")).ToShortDateString
                     dateout = Convert.ToDateTime(conDate2.ToString("yyyy-MM-dd")).ToShortDateString
@@ -859,8 +825,6 @@ Public Class Editing_Info
                     App_Salary='" & row.Cells(17).Value.ToString() & "'
                         WHERE  App_ID='" & GetAppID & "' and Seaservice_ID ='" & GetSeaID & "';  "
                 Catch
-
-
                     UpdateDataStr = " Update hunters_pooling.applicant_seaservice SET App_PrincipalName= '" & row.Cells(1).Value.ToString() & "',
                         App_VesselName ='" & row.Cells(2).Value.ToString() & "', 
                       App_ImportFlag='" & row.Cells(3).Value.ToString() & "',
@@ -877,46 +841,30 @@ Public Class Editing_Info
                      App_TradingRoute='" & row.Cells(16).Value.ToString() & "',
                     App_Salary='" & row.Cells(17).Value.ToString() & "'
                         WHERE  App_ID='" & GetAppID & "' and Seaservice_ID ='" & GetSeaID & "';  "
-
-                    End Try
-
-
-
-
-
-
-                    Dim UpdateDataCmd As OdbcCommand = New OdbcCommand(UpdateDataStr, conn)
-
-
-                    Try
-                        UpdateDataCmd.ExecuteNonQuery()
-                        UpdateDataCmd.Dispose()
-                    Catch ex As Exception
-                        MessageBox.Show(ex.Message)
-                    End Try
-                    'Pareho yung count ng nasa Database sa Datagridview.rows.count
-                    MsgBox("The Data has been Updated")
+                End Try
 
 
 
 
 
 
+                Dim UpdateDataCmd As OdbcCommand = New OdbcCommand(UpdateDataStr, conn)
+                Try
+                    UpdateDataCmd.ExecuteNonQuery()
+                    UpdateDataCmd.Dispose()
+                Catch ex As Exception
+                    MessageBox.Show(ex.Message)
+                End Try
+                'Pareho yung count ng nasa Database sa Datagridview.rows.count
+                MsgBox("The Data has been Updated")
 
-                Else
-
-                    If conn.State = ConnectionState.Closed Then
-                    conn.Open()
-                End If
-
+            Else
+                isConOpen()
                 For ctr As Integer = sscounter To SBDGView.Rows.Count - 2 Step +1
-
-
 
                     InsertDataStr = ("INSERT INTO hunters_pooling.applicant_seaservice(App_PrincipalName,App_VesselName,App_ImportFlag,App_Nationality,App_Agency,App_Rank,App_VesselType,
                                                       App_GRT,App_EngineType,App_BHP, App_KW,App_DateSignedON,App_DateSignedOFF,App_Duration,App_Reason,App_TradingRoute,App_Salary,App_ID) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")
                     Dim IsrtDatacmd As OdbcCommand = New OdbcCommand(InsertDataStr, conn)
-
                     IsrtDatacmd.Parameters.AddWithValue("@App_PrincipalName", CType(SBDGView.Rows(ctr).Cells(1).Value.ToString(), String))
                     IsrtDatacmd.Parameters.AddWithValue("@App_VesselName", CType(SBDGView.Rows(ctr).Cells(2).Value.ToString(), String))
                     IsrtDatacmd.Parameters.AddWithValue("@App_ImportFlag", CType(SBDGView.Rows(ctr).Cells(3).Value.ToString(), String))
@@ -937,9 +885,7 @@ Public Class Editing_Info
                     IsrtDatacmd.Parameters.AddWithValue("@App_ID", CType(GetAppID, String))
                     IsrtDatacmd.ExecuteNonQuery()
                     IsrtDatacmd.Dispose()
-
                 Next
-
                 MessageBox.Show("The Data has been Inserted")
 
             End If
@@ -947,14 +893,10 @@ Public Class Editing_Info
 
         ElseIf GetShipStat.Equals("Offshore") Then
 
-
-
-            'INSERTING SHIPBOARD Expi
+            'INSERTING SHIPBOARD EXPERIENCE
             Dim InsertDataStr As String
 
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
-            End If
+            isConOpen()
             Dim datein, dateout As Date
             datein = Convert.ToDateTime(conDate1.ToString("yyyy-MM-dd")).ToShortDateString
             dateout = Convert.ToDateTime(conDate2.ToString("yyyy-MM-dd")).ToShortDateString
@@ -971,16 +913,12 @@ Public Class Editing_Info
             End If
 
             Dim i As Integer = SBDGView.Rows.Count - 1
-
             If i = sscounter Then
 
                 Dim row As New DataGridViewRow()
                 row = SBDGView.Rows(selectedRowIndex)
 
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
-                End If
-
+                isConOpen()
                 UpdateDataStr = " Update hunters_pooling.applicant_seaservice SET App_PrincipalName= '" & row.Cells(1).Value.ToString() & "',
                         App_VesselName ='" & row.Cells(2).Value.ToString() & "', 
                       App_ImportFlag='" & row.Cells(3).Value.ToString() & "',
@@ -1010,12 +948,7 @@ Public Class Editing_Info
                   App_InstalType='" & row.Cells(27).Value.ToString() & "', 
                 App_Charterer='" & row.Cells(28).Value.ToString() & "'
                         WHERE  App_ID='" & GetAppID & "' and Seaservice_ID ='" & GetSeaID & "';  "
-
-
-                ' AppCert_DateIssued ='" & doccertissued.Value.Date.ToString("yyyy-MM-dd") & "',
                 Dim UpdateDataCmd As OdbcCommand = New OdbcCommand(UpdateDataStr, conn)
-
-
                 Try
                     UpdateDataCmd.ExecuteNonQuery()
                     UpdateDataCmd.Dispose()
@@ -1025,13 +958,9 @@ Public Class Editing_Info
                 'Pareho yung count ng nasa Database sa Datagridview.rows.count
                 MsgBox("The Offshore Data has been Updated")
 
-
-
             Else
 
-                If conn.State = ConnectionState.Closed Then
-                    conn.Open()
-                End If
+                isConOpen()
 
                 For ctr As Integer = sscounter To SBDGView.Rows.Count - 2 Step +1
 
@@ -1091,22 +1020,12 @@ Public Class Editing_Info
 
     Public Sub updateDoc()
         '--------------------------update doc cert-----------------------------------------'
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
-        End If
-        'End If
-
-
+        isConOpen()
         Dim GetDocCtgry As String
-
-
         Dim DOB As String = Nothing
-
-
         MessageBox.Show(GetDocID)
         'Query for DOC_NAme
         Dim docertstr As String
-
         docertstr = "SELECT Document_ID, Document_Longname,Document_Shortcut,Document_Category,Document_Status FROM csiaccountingdb.document_list where Document_ID= '" & GetDocID & "';"
         Dim decertcommand As OdbcCommand
         decertcommand = New OdbcCommand(docertstr, conn)
@@ -1114,20 +1033,14 @@ Public Class Editing_Info
 
         If docertmyReader.Read Then
             GetDocCtgry = docertmyReader.Item(3).ToString
-
         End If
 
 
         If GetDocCtgry.ToString.ToLower.Equals("cert") Then
             'certs
             Dim updatecertstr As String
-            ' //dito tayo
-
-
-
 
             If expirycbox.Checked = True Then
-
                 updatecertstr = " Update hunters_pooling.applicant_cert SET AppCert_Name= '" & EscapeQuote(AppDocTitle.Text) & "',
                 AppCert_No ='" & doccertno.Text & "', 
                 AppCert_Place='" & PlaceTxt.Text & "',
@@ -1137,9 +1050,6 @@ Public Class Editing_Info
                 AppCert_Trainingcenter='" & TCenterTxt.Text & "',
                 AppCert_Status='" & doccertStat.selectedValue & "'
                 WHERE  App_ID='" & GetAppID & "' and App_CertID ='" & GetAppDCID & "';  "
-
-
-
             Else
                 updatecertstr = " Update hunters_pooling.applicant_cert SET AppCert_Name= '" & EscapeQuote(AppDocTitle.Text) & "',
                 AppCert_No ='" & doccertno.Text & "', 
@@ -1150,26 +1060,20 @@ Public Class Editing_Info
                 AppCert_Trainingcenter='" & TCenterTxt.Text & "',
                 AppCert_Status='" & doccertStat.selectedValue & "'
                 WHERE  App_ID='" & GetAppID & "' and App_CertID ='" & GetAppDCID & "';  "
-
             End If
 
             Dim updatecertcmd As OdbcCommand = New OdbcCommand(updatecertstr, conn)
-
-
             Try
                 updatecertcmd.ExecuteNonQuery()
                 updatecertcmd.Dispose()
             Catch ex As Exception
                 MessageBox.Show(ex.Message)
             End Try
-
         Else
             'doc
             Dim updatedocstr As String
             Dim datenow As Date = Date.UtcNow
-
             If expirycbox.Checked = True Then
-
                 updatedocstr = " Update hunters_pooling.applicant_doc SET AppDoc_Name= '" & EscapeQuote(AppDocTitle.Text) & "',
 AppDoc_No ='" & doccertno.Text & "', 
 AppDoc_Place='" & PlaceTxt.Text & "',
@@ -1187,9 +1091,6 @@ AppDoc_DateIssued='" & doccertissued.Value.Date.ToString("yyyy-MM-dd") & "',
            AppDoc_DateExpired='" & doccertexpiry.Value.Date.ToString("yyyy-MM-dd") & "',
 AppDoc_Status='" & doccertStat.selectedValue & "'
 WHERE  App_ID='" & GetAppID & "' and App_DocID ='" & GetAppDCID & "' ;  "
-
-
-
             End If
 
             Dim updatedoccmd As OdbcCommand = New OdbcCommand(updatedocstr, conn)
@@ -1198,17 +1099,11 @@ WHERE  App_ID='" & GetAppID & "' and App_DocID ='" & GetAppDCID & "' ;  "
                 updatedoccmd.Dispose()
             Catch ex As Exception
                 ' MessageBox.Show(ex.Message)
-
             End Try
-
-
-
         End If
     End Sub
     Public Sub Checking()
         'Checking ng system sa mga hindi nafill-up-an
-
-
 
         If Len(Trim(AppGName.Text)) = 0 Then
             MessageBox.Show("Please select Generic Name", "Input Error", MessageBoxButtons.OK)
@@ -1247,68 +1142,27 @@ WHERE  App_ID='" & GetAppID & "' and App_DocID ='" & GetAppDCID & "' ;  "
             MessageBox.Show("Please enter Date Issued", "Input Error", MessageBoxButtons.OK)
             doccertissued.Focus()
             Exit Sub
-
-
         Else
 
             If GetNewID.Equals("New") Then
-                'insert
-
                 ' inserting data
-                Dim ask As MsgBoxResult = MsgBox("Do You want to add this Document", MsgBoxStyle.YesNo)
-                If ask = MsgBoxResult.Yes Then
-
-
+                Dim addDoc As MsgBoxResult = MsgBox("Do You want to add this Document", MsgBoxStyle.YesNo)
+                If addDoc = MsgBoxResult.Yes Then
                     If AppGName.Text.Equals(AppDocTitle.Text) Then
-
-
                         addcertdoc()
                         MessageBox.Show("Data Successfully Saved")
-
                     Else
                         MessageBox.Show("Please Check the Information Before Saving")
                     End If
-
                 Else
                     MessageBox.Show("Please Check the Information Before Saving")
                 End If
 
 
             ElseIf GetNewID.Equals("Update") Then
-                'update 
-                'If AppGName.Text.Equals(AppDocTitle.Text) Then
-
-                '    Dim ask As MsgBoxResult = MsgBox("Confirm Update? ", MsgBoxStyle.YesNo)
-                '    If ask = MsgBoxResult.Yes Then
-
-                '        updateDoc()
-                '        MessageBox.Show("Data Successfully Saved")
-                '    Else
-                '        MessageBox.Show("Kindly Check the Information Before Saving")
-                '    End If
-
-                '    'ElseIf AppGName.Text.Contains("VISA") Then
-
-                '    '    Dim ask As MsgBoxResult = MsgBox("Confirm Update? ", MsgBoxStyle.YesNo)
-                '    '        If ask = MsgBoxResult.Yes Then
-
-                '    '            updateDoc()
-                '    '            MessageBox.Show("Data Successfully Saved")
-                '    '        Else
-                '    '            MessageBox.Show("Kindly Check the Information Before Saving")
-                '    '        End If
-
-
-                'Else
-
-                '        MessageBox.Show("Please Check the Information Before Saving")
-                'End If
-
-
                 Try
                     Dim ask As MsgBoxResult = MsgBox("Confirm Update? ", MsgBoxStyle.YesNo)
                     If ask = MsgBoxResult.Yes Then
-
                         updateDoc()
                         MessageBox.Show("Data Successfully Saved")
                     Else
@@ -1317,8 +1171,6 @@ WHERE  App_ID='" & GetAppID & "' and App_DocID ='" & GetAppDCID & "' ;  "
                 Catch ex As Exception
                     MessageBox.Show("Please Check the Information Before Saving")
                 End Try
-
-
 
             End If
             conn.Close()
@@ -1343,10 +1195,6 @@ WHERE  App_ID='" & GetAppID & "' and App_DocID ='" & GetAppDCID & "' ;  "
         TCenterTxt.Text = String.Empty
         doccertStat.Text = String.Empty
 
-
-
-
-
     End Sub
 
     Private Sub BunifuCheckbox1_OnChange(sender As Object, e As EventArgs) Handles expirycbox.OnChange
@@ -1355,8 +1203,6 @@ WHERE  App_ID='" & GetAppID & "' and App_DocID ='" & GetAppDCID & "' ;  "
             doccertexpiry.Enabled = False
         Else
             doccertexpiry.Enabled = True
-
-
         End If
     End Sub
 
@@ -1381,38 +1227,26 @@ WHERE  App_ID='" & GetAppID & "' and App_DocID ='" & GetAppDCID & "' ;  "
 
     End Sub
 
+
     Private Sub DocCertView_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DocCertView.CellClick
 
         GetNewID = "Update"
-
         'certification
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
-        End If
-
-
+        isConOpen()
         Dim selectcert As String
-        Dim counters As Integer
-
 
         DocCertView.Columns(6).Visible() = False
         DocCertView.Columns(6).Visible() = False
 
         If (e.RowIndex >= 0) Then
-
-
-
             If doccertfilter.selectedValue.Equals("TRAINING CERTS") Then
 
-                ' TCenterTxt.Enabled = True
                 'cERT
                 selectcert = "Select Document_ID, App_CertID, AppCert_Name, AppCert_Shortcut, AppCert_No, AppCert_Place, AppCert_Country,AppCert_DateIssued, AppCert_DateExpired, AppCert_Trainingcenter, AppCert_Status FROM hunters_pooling.applicant_cert where AppCert_Status = 'ACTIVE' and Document_ID = '" & DocCertView.Rows.Item(e.RowIndex).Cells(0).Value & "' and App_CertID = '" & DocCertView.Rows.Item(e.RowIndex).Cells(6).Value & "';   "
 
                 Dim decertcommand As OdbcCommand
                 decertcommand = New OdbcCommand(selectcert, conn)
-
                 Dim doccertreader As OdbcDataReader = decertcommand.ExecuteReader()
-                'MessageBox.Show("cert_id " + DocCertView.Rows.Item(e.RowIndex).Cells(6).Value.ToString)
                 If doccertreader.Read Then
                     GetAppDCID = doccertreader.Item("App_CertID").ToString()
                     AppGName.Text = doccertreader.Item("AppCert_Name").ToString()
@@ -1429,9 +1263,6 @@ WHERE  App_ID='" & GetAppID & "' and App_DocID ='" & GetAppDCID & "' ;  "
                 End If
 
             ElseIf doccertfilter.selectedValue.Equals("DOCUMENTS") Then
-                '  TCenterTxt.Enabled = False
-
-
 
                 'Documents
                 Dim selectdoc As String
@@ -1479,18 +1310,12 @@ WHERE  App_ID='" & GetAppID & "' and App_DocID ='" & GetAppDCID & "' ;  "
                 End If
 
 
-                'If expirycbox.Checked = True Then
-                '    doccertexpiry.Enabled = False
-                'Else
-                '    doccertexpiry.Enabled = True
-                'End If
-                'cERT
                 selectcert = "Select Document_ID,App_CertID, AppCert_Name, AppCert_Shortcut, AppCert_No, AppCert_Place, AppCert_Country,AppCert_DateIssued, AppCert_DateExpired, AppCert_Trainingcenter, AppCert_Status FROM hunters_pooling.applicant_cert where AppCert_Status = 'ACTIVE' and Document_ID = '" & DocCertView.Rows.Item(e.RowIndex).Cells(0).Value & "' and App_CertID = '" & DocCertView.Rows.Item(e.RowIndex).Cells(6).Value & "';   "
 
-                    Dim decertcommand As OdbcCommand
-                    decertcommand = New OdbcCommand(selectcert, conn)
+                Dim decertcommand As OdbcCommand
+                decertcommand = New OdbcCommand(selectcert, conn)
 
-                    Dim doccertreader As OdbcDataReader = decertcommand.ExecuteReader()
+                Dim doccertreader As OdbcDataReader = decertcommand.ExecuteReader()
                 'MessageBox.Show("cert_id " + DocCertView.Rows.Item(e.RowIndex).Cells(6).Value.ToString)
                 If doccertreader.Read Then
                     doccertexpiry.Enabled = False
@@ -1511,13 +1336,9 @@ WHERE  App_ID='" & GetAppID & "' and App_DocID ='" & GetAppDCID & "' ;  "
 
 
 
-
-
-
-
             End If
 
-                ElseIf e.RowIndex <> -1 Then
+        ElseIf e.RowIndex <> -1 Then
 
         End If
 
@@ -1758,7 +1579,6 @@ WHERE  App_ID='" & GetAppID & "' and App_DocID ='" & GetAppDCID & "' ;  "
             str = "I hereby certify that this checklist Is complete, correct And True To the best Of my knowledge. I acknowledge that I have received all the original documents "
             str = str & "listed in this checklist as reviewed by me and have been inserted in the blue folder. Furthermore, I assure that nothing will be removed nor taken out from this "
             str = str & "folder and that this folder will be surrendered to the Master for safe keeping as soon as I embark on my assigned vessel."
-            ' e.Graphics.DrawString(str, hereby, Brushes.Black, New Rectangle(30, yrec, 950, 105), sf)
             e.Graphics.DrawString(str, hereby, Brushes.Black, New Rectangle(30, yrec + 15, 780, 250), StringFormat.GenericTypographic)
             e.Graphics.DrawString("NOTED BY:", FontMID, Brushes.Black, 40, yrec + 150)
             e.Graphics.DrawString("RECEIVED BY:", FontMID, Brushes.Black, 650, yrec + 150)
@@ -1766,9 +1586,6 @@ WHERE  App_ID='" & GetAppID & "' and App_DocID ='" & GetAppDCID & "' ;  "
         End If
 
     End Sub
-
-
-
 
     Private Sub AppZipCode_KeyPress(sender As Object, e As KeyPressEventArgs) Handles AppZipCode.KeyPress
         If Char.IsNumber(e.KeyChar) = False Then
@@ -1795,9 +1612,7 @@ WHERE  App_ID='" & GetAppID & "' and App_DocID ='" & GetAppDCID & "' ;  "
 
     Private Sub PrintSBInfo_PrintPage(sender As Object, e As Drawing.Printing.PrintPageEventArgs) Handles PrintSBInfo.PrintPage
 
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
-        End If
+        isConOpen()
         Dim y As Integer = 113
         Dim yrec As Integer = 40
 
@@ -1908,8 +1723,6 @@ WHERE  App_ID='" & GetAppID & "' and App_DocID ='" & GetAppDCID & "' ;  "
             e.Graphics.DrawRectangle(myPen, 1285, yrec, 85, 20) 'salary
             yrec = yrec + 20
         Next
-        ' DrawRectangle(myPen, X, Y, width, height)
-
 
 
         e.Graphics.DrawString("Shipboard Experience", Fontbox, Brushes.Black, 35, yrec + 40)
@@ -1957,8 +1770,6 @@ WHERE  App_ID='" & GetAppID & "' and App_DocID ='" & GetAppDCID & "' ;  "
         str = str & "disqualification or non-acceptance of my application. I also understand that strict medical examination inclusive of a Drug and Alcohol Test is a company prerequisite for my employment. "
         str = str & "I am will to be examined and to provide this company's accredited medical clinic a complete and detailed personal medical history. I also agree that the findings and results of the examination are final. "
         str = str & "I am not presently employed with any company and if my application is accepted, i will be available to report starting on (dd-mm-yy) "
-
-        ' e.Graphics.DrawString(str, hereby, Brushes.Black, New Rectangle(30, yrec, 950, 105), sf)
         e.Graphics.DrawString(str, hereby, Brushes.Black, New Rectangle(35, yrec + 255, 1340, 60), StringFormat.GenericTypographic)
         e.Graphics.DrawString("Signature of Seafarer:_____________________________________________________________________________", Fontbox, Brushes.Black, 35, yrec + 320)
         e.Graphics.DrawString("Date:__________________________________________________________________________", Fontbox, Brushes.Black, 790, yrec + 320)
@@ -1975,13 +1786,10 @@ WHERE  App_ID='" & GetAppID & "' and App_DocID ='" & GetAppDCID & "' ;  "
         Dim PD As New Drawing.Printing.PrintDocument
 
         PPV.Document = PD
-
         DirectCast(PPV, Form).WindowState = FormWindowState.Maximized
         PPV.Document.DefaultPageSettings.PaperSize = New Drawing.Printing.PaperSize("Legal", 850, 1400)
         AddHandler PD.PrintPage, AddressOf PrintSBInfo_PrintPage
         PPV.Document.DefaultPageSettings.Landscape = True
-
-
         PPV.Show()
 
     End Sub
@@ -1990,9 +1798,6 @@ WHERE  App_ID='" & GetAppID & "' and App_DocID ='" & GetAppDCID & "' ;  "
 
 
     Private Sub DaprvBtn_Click(sender As Object, e As EventArgs) Handles DaprvBtn.Click
-
-        'App_Remarks.Show()  
-
         Dim OBJ As New App_Remarks
         OBJ.username = UserText
         OBJ.GetAppID = AppIDIdentifier.Text
@@ -2010,9 +1815,7 @@ WHERE  App_ID='" & GetAppID & "' and App_DocID ='" & GetAppDCID & "' ;  "
     Private Sub SavekinBtn_Click(sender As Object, e As EventArgs) Handles SavekinBtn.Click
 
         If GetKinStat.ToString.Equals("Insert") Then
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
-            End If
+            isConOpen()
             'insert
             Dim inskinstr As String
             inskinstr = ("INSERT INTO hunters_pooling.applicant_family(appkin_LName,appkin_FName,appkin_MName,appkin_Suffix,appkin_Address, appkin_Sex , appkin_Bday ,appkin_Bplace,appkin_ContactNo ,appkin_Occupation ,appkin_Relation ,appkin_Status ,appkin_Passport,appkin_PsprtPlaceIssue, appkin_IssueDate,appkin_ExpiryDate, App_ID) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)")
@@ -2035,9 +1838,6 @@ WHERE  App_ID='" & GetAppID & "' and App_DocID ='" & GetAppDCID & "' ;  "
             inskincmd.Parameters.Add(New OdbcParameter("@appkin_IssueDate", CType(Kin_IssueDate.Value.Date.ToString("yyyy-MM-dd"), Date)))
             inskincmd.Parameters.Add(New OdbcParameter("@appkin_ExpiryDate", CType(Kin_ExpiryDate.Value.Date.ToString("yyyy-MM-dd"), Date)))
             inskincmd.Parameters.Add(New OdbcParameter("@App_ID", CType(GetAppID, String)))
-
-
-
             inskincmd.ExecuteNonQuery()
             inskincmd.Dispose()
 
@@ -2081,12 +1881,6 @@ appkin_ExpiryDate='" & Kin_ExpiryDate.Value.Date.ToString("yyyy-MM-dd") & "'
             Catch ex As Exception
                 MessageBox.Show(ex.Message)
             End Try
-
-
-
-
-
-
         End If
 
 
@@ -2113,9 +1907,7 @@ appkin_ExpiryDate='" & Kin_ExpiryDate.Value.Date.ToString("yyyy-MM-dd") & "'
     Private Sub FamilyInfoDGView_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles FamilyInfoDGView.CellClick
         GetKinStat = "Update"
 
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
-        End If
+        isConOpen()
 
         If (e.RowIndex >= 0) Then
 
@@ -2143,7 +1935,6 @@ appkin_ExpiryDate='" & Kin_ExpiryDate.Value.Date.ToString("yyyy-MM-dd") & "'
                 SexCmbox.Text = kinfamreader.Item("appkin_Sex").ToString()
                 Kin_Occupation.Text = kinfamreader.Item("appkin_Occupation").ToString()
                 Kin_Stat.Text = kinfamreader.Item("appkin_Status").ToString()
-
                 Kin_Passport.Text = kinfamreader.Item("appkin_Passport").ToString()
                 Kin_PlaceIssued.Text = kinfamreader.Item("appkin_PsprtPlaceIssue").ToString()
                 Kin_IssueDate.Text = kinfamreader.Item("appkin_IssueDate").ToString()
@@ -2173,29 +1964,20 @@ appkin_ExpiryDate='" & Kin_ExpiryDate.Value.Date.ToString("yyyy-MM-dd") & "'
 
     Private Sub AppPosition_SelectedIndexChanged(sender As Object, e As EventArgs) Handles AppPosition.SelectedIndexChanged
         Dim pool As String
-
         pool = AppPosition.Text
-
         RankTxtbox.Text = pool
-
     End Sub
 
 
     Private Sub BunifuFlatButton1_Click(sender As Object, e As EventArgs) Handles UploadBtn.Click
-        If conn.State = ConnectionState.Open Then
-            conn.Close()
-        End If
+        isConOpen()
 
         Dim opf As New OpenFileDialog
 
         opf.Filter = "Choose Image(*.JPG;*.PNG;*.GIF)|*.jpg;*.png;*.gif"
-
-        'Dim ask As MsgBoxResult = MsgBox("Confirm Update?", MsgBoxStyle.YesNo)
-        'If ask = MsgBoxResult.Yes Then
         If opf.ShowDialog = Windows.Forms.DialogResult.OK Then
             PictureBox1.Image = Image.FromFile(opf.FileName)
 
-            conn.Open()
             Dim updateinfo As String
             updateinfo = "Update hunters_pooling.applicant_info SET App_Picture= '" & EscapeBack(opf.FileName) & "'
                           WHERE  App_ID='" & GetAppID & "';"
@@ -2214,50 +1996,6 @@ appkin_ExpiryDate='" & Kin_ExpiryDate.Value.Date.ToString("yyyy-MM-dd") & "'
         Else
             MsgBox("Cancel")
         End If
-        'End If
-
-        'Dim updateinfo As String
-        'updateinfo = (" Update hunters_pooling.applicant_info SET (App_Picture, App_ID) " & "VALUES (?,?)")
-        'Dim updatetinfocmd As OdbcCommand = New OdbcCommand(updateinfo, conn)
-
-        'Dim ms As New MemoryStream
-        'PictureBox1.Image.Save(ms, PictureBox1.Image.RawFormat)
-
-        'updatetinfocmd.Parameters.Add("@App_Picture", SqlDbType.Image, ms.Length).Value = ms.ToArray()
-
-
-        'updatetinfocmd.Parameters.Add(New OdbcParameter("@App_ID", CType(GetAppID, String)))
-
-        'Try
-        '    updatetinfocmd.ExecuteNonQuery()
-        '    updatetinfocmd.Dispose()
-
-        'Catch ex As Exception
-        '    MessageBox.Show(ex.Message)
-        'End Try
-
-        ' AppBDay.Value.Date.ToString("yyyy-MM-dd")
-
-        ' Dim updateinfo As String
-        ' updateinfo = " Update hunters_pooling.applicant_info SET App_Picture= '" & ms.ToArray & "'
-        'WHERE  App_ID='" & GetAppID & "' ;  "
-        ' Dim updatetinfocmd As OdbcCommand = New OdbcCommand(updateinfo, conn)
-
-
-
-        ' Command.Parameters.Add("@img", SqlDbType.Image).Value = ms.ToArray()
-
-        ' insertaddcmd.Parameters.Add(New OdbcParameter("@App_ZipCode", CType(AppZipCode.Text, String)))
-        ' insertaddcmd.Parameters.Add(New OdbcParameter("@App_City", CType(AppCity.Text, String)))
-        ' insertaddcmd.Parameters.Add(New OdbcParameter("@App_Barangay", CType(App_Barangay.Text, String)))
-
-        ' Try
-        '     updatetinfocmd.ExecuteNonQuery()
-        '     updatetinfocmd.Dispose()
-
-        ' Catch ex As Exception
-        '     MessageBox.Show(ex.Message)
-        ' End Try
 
     End Sub
 
@@ -2282,9 +2020,7 @@ appkin_ExpiryDate='" & Kin_ExpiryDate.Value.Date.ToString("yyyy-MM-dd") & "'
 
     Private Sub OffshoreBtn_Click(sender As Object, e As EventArgs) Handles OffshoreBtn.Click
         '///////////////////////SHIPBOARD TAB CODE///////////////////////////////////////
-        If conn.State = ConnectionState.Closed Then
-            conn.Open()
-        End If
+        isConOpen()
         GetShipStat = "Offshore"
         Dim SbList As String
         SbList = "SELECT Seaservice_ID as ID, App_PrincipalName as 'Principal' ,App_VesselName as 'VesselName',App_ImportFlag as 'Flag', App_Nationality as 'Nationality', App_Agency as 'Agency', App_Rank as 'Rank', App_VesselType  as 'Vessel Type', App_GRT as 'GRT',App_EngineType as 'Engine Type', App_BHP as 'BHP', App_KW as 'KW', date_format(App_DateSignedON , '%d-%b-%Y') AS 'Signed On',  date_format(App_DateSignedOFF , '%d-%b-%Y') AS 'Signed Off',
@@ -2303,56 +2039,30 @@ appkin_ExpiryDate='" & Kin_ExpiryDate.Value.Date.ToString("yyyy-MM-dd") & "'
     End Sub
 
     Private Sub BunifuFlatButton1_Click_1(sender As Object, e As EventArgs)
-
-
-        'SBDGView.Size = New Size(1169, 347) original'
-
         SBDGView.Size = New Size(1169, 75) 'changed
     End Sub
 
-    Private Sub RefPerson_OnValueChanged(sender As Object, e As EventArgs) Handles RefPerson.OnValueChanged
-
-    End Sub
 
     Private Sub SaveRefBtn_Click(sender As Object, e As EventArgs) Handles SaveRefBtn.Click
 
 
-        If conn.State = ConnectionState.Open Then
-            conn.Close()
-        End If
-
-        conn.Open()
+        isConOpen()
 
         'Character References
         'Agency
         If Len(Trim(RefLEN.Text)) = 0 And Len(Trim(RefAdd.Text)) = 0 And Len(Trim(RefPerson.Text)) = 0 And Len(Trim(RefCPNo.Text)) = 0 Then
             Exit Sub
         Else
-
-
-
             Dim InsRef As String
             InsRef = ("INSERT INTO hunters_pooling.applicant_reference(Ref_Name, Ref_Address, Ref_CPerson, Ref_Number, Ref_Email, Ref_Type, App_ID) VALUES (?,?,?,?,?,?,?)")
             Dim IsrtRefcmd As OdbcCommand = New OdbcCommand(InsRef, conn)
-
-
             IsrtRefcmd.Parameters.Add(New OdbcParameter("@Ref_Name", CType(RefLEN.Text, String)))
             IsrtRefcmd.Parameters.Add(New OdbcParameter("@Ref_Address", CType(RefAdd.Text, String)))
             IsrtRefcmd.Parameters.Add(New OdbcParameter("@Ref_CPerson", CType(RefPerson.Text, String)))
             IsrtRefcmd.Parameters.Add(New OdbcParameter("@Ref_Number", CType(RefCPNo.Text, String)))
             IsrtRefcmd.Parameters.Add(New OdbcParameter("@Ref_Email", CType(RefEmail.Text, String)))
             IsrtRefcmd.Parameters.Add(New OdbcParameter("@Ref_Type", CType("Agency", String)))
-
             IsrtRefcmd.Parameters.Add(New OdbcParameter("@App_ID", CType(GetAppID, String)))
-
-            'Try
-            '    IsrtRefcmd.ExecuteNonQuery()
-            '    IsrtRefcmd.Dispose()
-            '    MessageBox.Show("Character Reference Saved")
-
-            'Catch ex As Exception
-            '    MessageBox.Show(ex.Message)
-            'End Try
             IsrtRefcmd.ExecuteNonQuery()
             IsrtRefcmd.Dispose()
             MessageBox.Show("Character Reference Saved")
@@ -2374,16 +2084,7 @@ appkin_ExpiryDate='" & Kin_ExpiryDate.Value.Date.ToString("yyyy-MM-dd") & "'
             InsPrinRefcmd.Parameters.Add(New OdbcParameter("@Ref_Number", CType(RePrinCNo.Text, String)))
             InsPrinRefcmd.Parameters.Add(New OdbcParameter("@Ref_Email", CType(RePrinEmail.Text, String)))
             InsPrinRefcmd.Parameters.Add(New OdbcParameter("@Ref_Type", CType("Principal", String)))
-
             InsPrinRefcmd.Parameters.Add(New OdbcParameter("@App_ID", CType(GetAppID, String)))
-
-            'Try
-            '    InsPrinRefcmd.ExecuteNonQuery()
-            '    InsPrinRefcmd.Dispose()
-            '    MessageBox.Show("Character Reference Saved")
-            'Catch ex As Exception
-            '    MessageBox.Show(ex.Message)
-            'End Try
             InsPrinRefcmd.ExecuteNonQuery()
             InsPrinRefcmd.Dispose()
             MessageBox.Show("Character Reference Saved")
@@ -2400,8 +2101,6 @@ appkin_ExpiryDate='" & Kin_ExpiryDate.Value.Date.ToString("yyyy-MM-dd") & "'
         RefPerson.ResetText()
         RefCPNo.ResetText()
         RefEmail.ResetText()
-
-
         RefLEN.ResetText()
         RefAdd.ResetText()
         RefPerson.ResetText()
@@ -2423,62 +2122,26 @@ appkin_ExpiryDate='" & Kin_ExpiryDate.Value.Date.ToString("yyyy-MM-dd") & "'
 
     End Sub
 
-
-
-    'Private dateTimePicker1 As DateTimePicker
-    'Private dateTimePicker2 As DateTimePicker
-
     Private conDate1 As DateTime
     Private conDate2 As DateTime
 
 
     Private Sub SBDGView_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles SBDGView.CellClick
-        'This Is Problem
+
         selectedRowIndex = e.RowIndex
 
         If Not e.RowIndex = -1 Then
-
-
 
             If e.ColumnIndex = 12 Then
                 If SBDGView.Rows(e.RowIndex).Cells(12).Value.ToString.Equals("") Then
                     SBDGView.Rows.Item(e.RowIndex).Cells(12).Value = "dd-MMM-yyyy"
                 End If
-
-                'dateTimePicker1 = New DateTimePicker()
-                'SBDGView.Controls.Add(dateTimePicker1)
-                'dateTimePicker1.Format = DateTimePickerFormat.Short
-                'Dim oRectangle As Rectangle = SBDGView.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, True)
-                'dateTimePicker1.Size = New Size(oRectangle.Width, oRectangle.Height)
-                'dateTimePicker1.Location = New Point(oRectangle.X, oRectangle.Y)
-                'AddHandler dateTime Picker1.TextChanged, AddressOf DateTimePickerChange1
-                'AddHandler SBDGView.Scroll, AddressOf DateTimePickerScroll1
-
-                'dateBox1 = New TextBox()
-                'SBDGView.Controls.Add(dateBox1)
-                'dateBox1.Text = 
-                'Dim oRectangle As Rectangle = SBDGView.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, True)
-                'dateBox1.Size = New Size(oRectangle.Width, oRectangle.Height)
-                'dateBox1.Location = New Point(oRectangle.X, oRectangle.Y)
-                'AddHandler dateTimePicker1.TextChanged, AddressOf DateTimePickerChange1
-                'AddHandler SBDGView.Scroll, AddressOf DateTimePickerScroll1    
-
             End If
             If e.ColumnIndex = 13 Then
                 If SBDGView.Rows(e.RowIndex).Cells(13).Value.ToString.Equals("") Then
                     SBDGView.Rows.Item(e.RowIndex).Cells(13).Value = "dd-MMM-yyyy"
                 End If
-                'dateTimePicker2 = New DateTimePicker()
-                'SBDGView.Controls.Add(dateTimePicker2)
-                'dateTimePicker2.Format = DateTimePickerFormat.Short
-                'Dim oRectangle As Rectangle = SBDGView.GetCellDisplayRectangle(e.ColumnIndex, e.RowIndex, True)
-                'dateTimePicker2.Size = New Size(oRectangle.Width, oRectangle.Height)
-                'dateTimePicker2.Location = New Point(oRectangle.X, oRectangle.Y)
-                'AddHandler dateTimePicker2.TextChanged, AddressOf DateTimePickerChange2
-                'AddHandler SBDGView.Scroll, AddressOf DateTimePickerScroll2
-                'SBDGView.Rows.Item(e.RowIndex).Cells(13).Value = SBDGView.Rows(e.RowIndex).Cells(12).Value
             End If
-
 
 
             If e.ColumnIndex = 14 Then
@@ -2493,11 +2156,6 @@ appkin_ExpiryDate='" & Kin_ExpiryDate.Value.Date.ToString("yyyy-MM-dd") & "'
                 Catch ex As Exception
                     MsgBox("Please Input Sign On and Sign Off First")
                 End Try
-
-
-                '  doccertissued.Value.Date.ToString("yyyy-MM-dd")
-                'inyear = Convert.ToDateTime(SBDGView.Rows.Item(e.RowIndex).Cells(12).ToString("dd-MMM-yyyy")).ToShortDateString
-                'outyear = Convert.ToDateTime(SBDGView.Rows.Item(e.RowIndex).Cells(13).ToString("dd-MMM-yyyy")).ToShortDateString
 
                 Difference(inyear, outyear)
                 If year = 0 Then
@@ -2518,42 +2176,29 @@ appkin_ExpiryDate='" & Kin_ExpiryDate.Value.Date.ToString("yyyy-MM-dd") & "'
 
             Try
                 GetSeaID = SBDGView.Rows.Item(e.RowIndex).Cells(0).Value
-                ' MsgBox(GetSeaID)
             Catch ex As Exception
 
             End Try
 
-
             Dim query As String
             Dim RefType As String
-
-            ' RefID.Text = SBDGView.Rows.Item(e.RowIndex).Cells(0).Value
-
+            RefLEN.ResetText()
+            RefAdd.ResetText()
+            RefPerson.ResetText()
+            RefCPNo.ResetText()
+            RefEmail.ResetText()
             RefLEN.ResetText()
             RefAdd.ResetText()
             RefPerson.ResetText()
             RefCPNo.ResetText()
             RefEmail.ResetText()
 
-
-            RefLEN.ResetText()
-            RefAdd.ResetText()
-            RefPerson.ResetText()
-            RefCPNo.ResetText()
-            RefEmail.ResetText()
-
-            If conn.State = ConnectionState.Closed Then
-                conn.Open()
-            End If
+            isConOpen()
 
             query = "SELECT Reference_ID, Ref_Name,Ref_Address,Ref_CPerson,Ref_Number,Ref_Email,Ref_Type,App_ID FROM hunters_pooling.applicant_reference WHERE App_ID = '" & GetAppID & "' order by reference_ID desc ;  "
-
             Dim command As OdbcCommand
             command = New OdbcCommand(query, conn)
             Dim reader As OdbcDataReader = command.ExecuteReader()
-
-
-
             While reader.Read
 
                 RefType = reader.Item("Ref_Type").ToString()
@@ -2576,12 +2221,6 @@ appkin_ExpiryDate='" & Kin_ExpiryDate.Value.Date.ToString("yyyy-MM-dd") & "'
                     RePrinEmail.Text = reader.Item("Ref_Email").ToString()
 
                 End If
-
-
-
-
-
-                'PictureBox1.Image = Image.FromFile(x)
 
             End While
 

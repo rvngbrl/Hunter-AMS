@@ -20,7 +20,7 @@ Public Class OnlineForm
 
         'Show Data Grid View
         Dim mainAppList As String
-        mainAppList = "SELECT ai.App_ID,CONCAT(ai.App_LName, ', ',ai.App_FName,' ', ai.App_Mname) AS 'Applicant Name',  YEAR(CURDATE()) - YEAR(ai.App_Bday) AS 'AGE', ai.App_PositionApplied AS 'Position' FROM web.applicant_info ai
+        mainAppList = "SELECT ai.App_ID,CONCAT(ai.App_LName, ', ',ai.App_FName,' ', ai.App_Mname) AS 'Applicant Name',  '2021' - YEAR(ai.App_Bday) AS 'AGE', ai.App_PositionApplied AS 'Position' FROM web.applicant_info ai
 Left Join web.applicant_stat ap ON ai.App_ID=ap.App_onlineID WHERE ai.App_Status ='APPLICANT' and  ap.App_Status is null  ORDER BY App_DateApplied desc; "
 
         Dim ApplicantView As New DataTable("hunters_pooling.applicant_info")
